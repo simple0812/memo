@@ -1,0 +1,75 @@
+@charset "UTF-8";
+.page_y {
+    font-family: Tahoma;
+    font-size: 14px;
+    width: 100%;
+    text-align: center;
+}
+
+.page_y ul {
+    text-align: center;
+    float: center;
+}
+
+.page_y ul li {
+    float: left;
+    font-family: Tahoma;
+}
+
+.page_y ul li a {
+    float: left;
+    color: #666;
+    text-decoration: none;
+}
+
+.page_y ul li a:hover {
+    color: #690;
+    text-decoration: none;
+    border-bottom: 2px solid #690;
+}
+
+.page_y ul li.thisclass a,
+.pagebox ul li.thisclass a:hover {
+    color: #F63;
+    border-bottom: 2px solid #F63;
+    font-weight: bold;
+}
+
+.page_y .pageinfo {
+    float: left;
+    line-height: 20px;
+    padding: -8px 10px 12px 16px;
+    color: #999;
+    margin-right: 20px;
+}
+
+.page_y .pageinfo strong {
+    color: #666;
+    font-weight: normal;
+    margin: -2px 2px;
+}
+
+.page_y .pageinput {
+    float: left;
+    line-height: 16px;
+    color: #999;
+}
+
+.page_y ul li .pagetxt {
+    border-bottom: #c3c3c3 1px solid;
+    border-left: #9a9a9a 1px solid;
+    outline-style: none;
+    outline-width: medium;
+    background: #fff;
+    border-top: #7c7c7c 1px solid;
+    border-right: #c3c3c3 1px solid;
+    width: 25px;
+    float: left;
+    height: 20px;
+    margin-right: 2px
+}
+
+.page_y ul li .pageinput a {
+    position: relative;
+    top: 2px
+}
