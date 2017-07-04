@@ -5,6 +5,7 @@ var config = require('../config');
 var db = new Sequelize(config.DB.database, config.DB.user, config.DB.password, {
     host: config.DB.host,
     dialect: 'mysql',
+    logging: process.env.NODE_ENV === 'development' ,
     pool: {
         max: 50,
         min: 0

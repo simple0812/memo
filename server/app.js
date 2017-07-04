@@ -8,7 +8,7 @@ var path = require('path');
 var compress = require('compression');
 var helmet = require('helmet'); //服务安全(点击劫持等)
 var csurf = require('csurf'); //csrf
-var cors = require('cors');
+var cors = require('cors'); //跨域访问
 var webRouter = require('./web_router');
 var apiRouterV1 = require('./api_router_v1');
 
@@ -28,10 +28,9 @@ app.use(require('cookie-session')({
     secret: 'zhanglei'
 }));
 
-console.log(process.argv)
 var env = process.env.NODE_ENV || 'production';
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 app.use(logger.middleware);
 

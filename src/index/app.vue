@@ -9,7 +9,6 @@
 
 <script>
 import * as _ from 'lodash'
-
 export default {
     data : function() {
         return {

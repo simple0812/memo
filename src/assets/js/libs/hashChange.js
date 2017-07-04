@@ -1,21 +1,4 @@
-/**
- * jQuery hashchange 1.0.0
- * 
- * (based on jquery.history)
- *
- * Copyright (c) 2008 Chris Leishman (chrisleishman.com)
- * Dual licensed under the MIT (MIT-LICENSE.txt)
- * and GPL (GPL-LICENSE.txt) licenses.
- */
-(function (factory) {
-    if (typeof define === 'function' && define.amd) {
-        define([
-            'jquery'
-        ], factory);
-    } else {
-        factory(window.jQuery);
-    }
-}(function ($) {
+(function () {
     $.fn.extend({
         hashchange: function (callback) { this.bind('hashchange', callback) },
         openOnClick: function (href) {
@@ -81,7 +64,9 @@
             setInterval(checkHash, 100);
         }
     });
-    $(window).unload(function () { iframe = null });
+    window.onunload = function() {
+        iframe = null 
+    }
 
     function checkHash() {
         var hash = location.hash;
@@ -125,6 +110,6 @@
         if (idoc.location.hash != hash) idoc.location.hash = hash;
     }
 
-}));
+})();
 
 

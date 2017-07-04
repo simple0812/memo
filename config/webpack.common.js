@@ -11,11 +11,14 @@ module.exports = function() {
         entry: {
             'main':'./src/index/main.js',
             'pagea':'./src/pageA/main.js',
-            'vue':'vue',
+            'bootstrap':'bootstrap',
             'vendor': './src/vendor.js'
         },
         devtool: 'cheap-module-source-map',
         resolve: {
+            alias:{
+                'vue':'vue/dist/vue.js'
+            },
             extensions: ['.vue', '.js', '.json'],
             modules: [helper.root('src'), helper.root('node_modules')],
         },
@@ -83,6 +86,7 @@ module.exports = function() {
                 }
             ]
         },
+        
         plugins:[
             new webpack.ProvidePlugin({
                     $: 'jquery',
@@ -100,7 +104,7 @@ module.exports = function() {
                 title:'test',
                 template: 'src/index/index.html',
                 chunksSortMode: 'dependency',
-                chunks: ['main','vendor']
+                chunks: ['main', 'vendor', 'bootstrap']
             }),
 
             new HtmlWebpackPlugin({
