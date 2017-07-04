@@ -68,6 +68,7 @@
     "css-loader": "^0.28.4",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.8.5",
+    "glob": "^7.1.2",
     "html-webpack-plugin": "^2.29.0",
     "optimize-js-plugin": "0.0.4",
     "raw-loader": "^0.5.1",
