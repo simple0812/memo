@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = (function() {
   function Constructor(status, message, result) {
     this.code = status;
     this.message = message;
@@ -6,7 +6,7 @@ module.exports = function() {
   }
 
   function getError(err) {
-    return new Constructor("error", err.message || err, '');
+    return new Constructor('error', err.message || err, '');
   }
 
 
@@ -26,4 +26,4 @@ module.exports = function() {
     pageSuccess: pageSuccess
   };
 
-}();
+})();

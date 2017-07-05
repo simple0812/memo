@@ -1,7 +1,8 @@
 var path = require('path');
 var fsx = require('fs-extra');
 
-fsx.ensureDir(path.resolve(__dirname, '../../uploads') + '/appxs')
+fsx.ensureDir(path.resolve(__dirname, '../../uploads') + '/appxs');
+
 module.exports = {
     ROOT: __dirname,
     PORT: 5555,

@@ -2,8 +2,9 @@ var log4js = require('log4js');
 var fs = require('fs');
 var config = require('../config');
 
-if (!fs.existsSync(config.LOG_DIR))
+if (!fs.existsSync(config.LOG_DIR)) {
     fs.mkdirSync(config.LOG_DIR);
+}
 
 var appenders = [
         {
@@ -19,9 +20,9 @@ var appenders = [
 log4js.configure({
     appenders:appenders,
     //'log','debug','info','warn','error'
-    "levels": {
-        "normal": "debug",
-        "access": "debug"
+    levels: {
+        normal: 'debug',
+        access: 'debug'
     }
 });
 
@@ -44,13 +45,12 @@ function subErrorStack(error) {
     }
 }
 
-
-var normal = log4js.getLogger("normal");
-var access = log4js.getLogger("access");
+var normal = log4js.getLogger('normal');
+var access = log4js.getLogger('access');
 
 exports.normal = normal;
 exports.access = access;
 exports.middleware = log4js.connectLogger(access, {
     level: 'auto',
     format: ':method :url :status :response-timems :content-length'
-})
+});

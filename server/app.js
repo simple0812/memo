@@ -51,10 +51,10 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-if (env == 'development') {
+if (env === 'development') {
     app.use(require('errorhandler')());
 } else {
-    app.use(function(err, req, res, next) {
+    app.use(function(err, req, res) {
         return res.status(err.status || 500).send(err.message || '500 status');
     });
 }

@@ -12,4 +12,4 @@ exports.syncDb = function() {
     .then(() => {
         return db.sync();
     });
-}
+};

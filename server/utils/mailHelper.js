@@ -1,4 +1,4 @@
-var nodemailer = require("nodemailer");
+var nodemailer = require('nodemailer');
 
 module.exports = {
     send: function(options, cb) {
@@ -10,11 +10,11 @@ module.exports = {
             to: options.To, // 收件列表
             subject: 'iot异常信息', // 标题
             text: options.Message || '' // html 内容
-        }
+        };
 
         smtpTransport.sendMail(mailOptions, function(error, response) {
             cb(error, response);
             smtpTransport.close(); // 如果没用，关闭连接池
         });
     }
-}
+};

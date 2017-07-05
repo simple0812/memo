@@ -1,5 +1,4 @@
 var express = require('express');
-var config = require('./config');
 var router = express.Router();
 var ctrl = require('./api/v1/memo');
 

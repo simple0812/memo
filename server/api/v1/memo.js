@@ -1,8 +1,4 @@
-var fs = require('fs');
-var httpHelper = require('../../utils/httpHelper');
-var config = require('../../config');
 var jsonHelper = require('../../utils/jsonHelper');
-var logger = require('../../utils/logger');
 var _ = require('lodash');
 var models = require('../../models');
 
@@ -24,7 +20,7 @@ exports.page = function(req, res) {
                 { description: { like: '%' + keyword + '%' }},
                 { link: { like: '%' + keyword + '%' }}
             ]
-        }
+        };
     }
 
     models.Memo.findAndCountAll(query).then(function(result) {
@@ -35,11 +31,11 @@ exports.page = function(req, res) {
     }).catch(err => {
         res.json(jsonHelper.getError(err.message));
     });
-}
+};
 
 exports.baz = function(req, res) {
     res.json(jsonHelper.getSuccess('baz'));
-}
+};
 
 exports.create = function(req, res) {
     var p = req.body;
@@ -56,7 +52,7 @@ exports.create = function(req, res) {
     } 
     p.id = p.id || null;
 
-    if(p.link.indexOf('http://') != 0) {
+    if(p.link.indexOf('http://') !== 0) {
         p.link = 'http://' + p.link;
     }
 
@@ -64,8 +60,8 @@ exports.create = function(req, res) {
         res.json(jsonHelper.getSuccess(p));
     }).catch(err => {
         res.json(jsonHelper.getError(err.message));
-    })
-}
+    });
+};
 
 exports.update = function(req, res) {
     var p = req.body;
@@ -84,13 +80,13 @@ exports.update = function(req, res) {
     if(!p.id) {
         return res.json(jsonHelper.getError('id is empty'));
     } 
-    console.log(p)
+    
     models.Memo.upsert(p).then(doc => {
         res.json(jsonHelper.getSuccess(doc));
     }).catch(err => {
         res.json(jsonHelper.getError(err.message));
-    })
-}
+    });
+};
 
 exports.remove = function(req, res) {
     console.log(req.body);
@@ -100,10 +96,9 @@ exports.remove = function(req, res) {
          return res.json(jsonHelper.getError('data is emtpy'));
     }
     models.Memo.destroy({where:{id:{$in:p}}}).then(doc => {
-        console.log(doc)
         res.json(jsonHelper.getSuccess(doc));
     }).catch(err => {
         res.json(jsonHelper.getError(err.message));
-    })
-}
+    });
+};
 

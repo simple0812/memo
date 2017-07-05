@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:srv": "node server/bin/www",
-    "start": "webpack-dev-server --config config/webpack.dev.js --open --progress --profile --watch --content-base src/",
+    "start:srv": "npm run jshint:srv && nodemon server/bin/www",
+    "start:dev": "webpack-dev-server --config config/webpack.dev.js --open --progress --profile --watch --content-base src/",
     "build": "npm run clean:dist && webpack --config config/webpack.prod.js ",
     "dll": "npm run clean:build && webpack --config config/webpack.dll.config.js ",
     "clean:dist": "npm run rimraf -- dist",
     "clean:build": "npm run rimraf -- dist dll",
     "rimraf": "rimraf",
+    "jshint:srv":"jshint server",
     "clean:all": "npm cache clean && npm run rimraf -- node_modules  coverage dist compiled dll",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
