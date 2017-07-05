@@ -2,6 +2,7 @@
 var path = require('path');
 var webpack = require('webpack');
 var glob = require('glob');
+var fs = require('fs');
 const helper = require('./helper');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -145,17 +146,22 @@ module.exports = function() {
 
     return ctx;
 }
-
+//寻找src目录下所有html文件 并且该html文件所在文件夹中包含main.js文件 则只用webpack打包该文件夹
 function getEntry(globPath) {
     var ret = [];
     glob.sync(globPath).forEach(function (entry) {
         tmp = entry.split('/').splice(-2);
         pathname = tmp[0]; // 正确输出js和html的路径
+        var p = entry.split('/');
+        p.pop();
+        var x = p.join('/') + '/main.js';
 
-        ret.push({
-            name : pathname,
-            path: entry.replace(/\\/g, '/')
-        })
+        if(fs.existsSync(x)) {
+            ret.push({
+                name : pathname,
+                path: entry
+            })
+        }
     });
     return ret;
 }

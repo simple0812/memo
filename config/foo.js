@@ -1,5 +1,8 @@
 var glob = require('glob')
 const helper = require('./helper');
+var fs = require('fs')
+
+
 var pages = getEntry(helper.root('src') +'/**/*.html');
 
 for (var each of pages) {
@@ -21,17 +24,21 @@ for (var each of pages) {
     //ctx.plugins.push(new HtmlWebpackPlugin(conf));
 }
 
-
 function getEntry(globPath) {
     var ret = [];
     glob.sync(globPath).forEach(function (entry) {
         tmp = entry.split('/').splice(-2);
         pathname = tmp[0]; // 正确输出js和html的路径
-
-        ret.push({
-            name : pathname,
-            path: entry
-        })
+        var p = entry.split('/');
+        p.pop();
+        var x = p.join('/') + '/main.js';
+        console.log(x)
+        if(fs.existsSync(x)) {
+            ret.push({
+                name : pathname,
+                path: entry
+            })
+        }
     });
     return ret;
 }
