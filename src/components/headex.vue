@@ -6,6 +6,12 @@
             </div>
             <div class=" navbar-collapse">
                 <ul class="nav navbar-nav" id="headNav">
+                    <li>
+                        <a href="/index.html" :class="isCurr('/index')">链接</a>
+                   </li>
+                   <li>
+                        <a href="/catalog.html" :class="isCurr('/catalog')">博客</a>
+                   </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                 </ul>
@@ -20,6 +26,12 @@ export default {
         return {
             title : '备忘录'
         };
+    },
+    methods: {
+        isCurr:function(url) {
+            if(url === '/index' && location.pathname === '/') return 'active';
+            return location.pathname.indexOf(url) !== -1 ? 'active' :'' ;
+        }
     }
 }
 </script>

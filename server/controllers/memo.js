@@ -1,3 +1,3 @@
 exports.render = function(req, res) {
-    res.render('memo.html');
+  res.render('memo.html');
 };

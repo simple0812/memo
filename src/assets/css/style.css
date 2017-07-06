@@ -47,10 +47,16 @@ body {
 .navbar-inverse .navbar-nav>li>a {
     color: #fff;
 }
-.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:hover {
-    color: rgb(255,243,123);
+.navbar-inverse .navbar-nav>li>.active {
+    color: rgb(255, 243, 123);
     background-color: #080808;
 }
+
+.navbar-inverse .navbar-nav>li>.active:hover {
+    color: rgb(255, 243, 123);
+    background-color: #080808;
+}
+
 #groupSelect {
     padding-left: 0;
 }

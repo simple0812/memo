@@ -96,6 +96,7 @@ var ctx =  {
         new CopyWebpackPlugin([
             { from: 'src/assets', to: 'assets' },
         ])
+
     ],
     devServer: {
         historyApiFallback: true,
@@ -128,37 +129,45 @@ var ctx =  {
 
 module.exports = function() {
     var pages = getEntry(helper.root('src') +'/**/*.html');
-
+    var chunks = [];
     for (var each of pages) {
         
         // 配置生成的html文件，定义路径等
         var conf = {
             favicon: 'src/favicon.ico',
-            filename: each.name + '.html',
-            template: `src/${each.name}/index.html`,
+            filename: each.dirname + '.html',
+            template: `src/${each.dirname}/${each.filename}.html`,
             chunksSortMode: 'dependency',
-            chunks: [each.name, 'vendor', 'bootstrap']
+            chunks: ['common', each.dirname, 'vendor', 'bootstrap']
         };
 
-        ctx.entry[each.name] = `./src/${each.name}/main.js`;
+        ctx.entry[each.dirname] = `./src/${each.dirname}/${each.filename}.js`;
         ctx.plugins.push(new HtmlWebpackPlugin(conf));
+        chunks.push(each.dirname);
     }
 
+    var plugin = new webpack.optimize.CommonsChunkPlugin({
+        name:'common',
+        chunks:chunks
+    });
+    ctx.plugins.push(plugin);
     return ctx;
 }
-//寻找src目录下所有html文件 并且该html文件所在文件夹中包含main.js文件 则只用webpack打包该文件夹
+//寻找src目录下所有html文件 并且该html文件所在文件夹中包含同名的js文件 则只用webpack打包该文件html文件
 function getEntry(globPath) {
     var ret = [];
     glob.sync(globPath).forEach(function (entry) {
-        tmp = entry.split('/').splice(-2);
-        pathname = tmp[0]; // 正确输出js和html的路径
+        var tmp = entry.split('/').splice(-2);
+        var dirname = tmp[0]; // 正确输出js和html的路径
+        var filename = tmp[1].split('.')[0];
         var p = entry.split('/');
         p.pop();
-        var x = p.join('/') + '/main.js';
+        var x = p.join('/') + `/${filename}.js`;
 
         if(fs.existsSync(x)) {
             ret.push({
-                name : pathname,
+                dirname: dirname,
+                filename: filename,
                 path: entry
             })
         }
