@@ -9,7 +9,6 @@ module.exports = (function() {
     return new Constructor('error', err.message || err, '');
   }
 
-
   function getSuccess(docs) {
     return new Constructor('success', '', docs);
   }

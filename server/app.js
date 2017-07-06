@@ -35,28 +35,28 @@ app.use(express.static(path.join(__dirname, '../dist')));
 app.use(logger.middleware);
 
 app.use(function(req, res, next) {
-    if (req.path === '/api' || req.path.indexOf('/api') === -1) {
-        csurf()(req, res, next);
-        return;
-    }
-    next();
+  if (req.path === '/api' || req.path.indexOf('/api') === -1) {
+    csurf()(req, res, next);
+    return;
+  }
+  next();
 });
 
 app.use('/api/v1', cors(), apiRouterV1);
 app.use('/', webRouter);
 
 app.use(function(req, res, next) {
-    var err = new Error('Not Found ' + req.originalUrl);
-    err.status = 404;
-    next(err);
+  var err = new Error('Not Found ' + req.originalUrl);
+  err.status = 404;
+  next(err);
 });
 
 if (env === 'development') {
-    app.use(require('errorhandler')());
+  app.use(require('errorhandler')());
 } else {
-    app.use(function(err, req, res) {
-        return res.status(err.status || 500).send(err.message || '500 status');
-    });
+  app.use(function(err, req, res) {
+    return res.status(err.status || 500).send(err.message || '500 status');
+  });
 }
 
 module.exports = app;
