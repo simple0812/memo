@@ -59,7 +59,7 @@ module.exports = function() {
       host: HOST,
       historyApiFallback: true,
       proxy: [{
-        context: ['/api', ],
+        context: ['/api', '/' ],
         target: 'http://localhost:5555',
         secure: false
       }],

@@ -1,7 +1,7 @@
 describe('Device', () => {
   beforeEach(() => {
     browser.waitForAngularEnabled(false);
-    browser.get('/index.html');
+    browser.get('/link.html');
   });
 
   afterEach(() => {

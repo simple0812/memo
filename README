@@ -1,0 +1,19 @@
+该项目使用nodemon + webpack + vue + karma + protractor搭建，包括以下几个功能：
+1.运行 npm run start:all可以实现前后端热更新，方便开发
+2.运行 npm run test 可以执行vue单元测试
+3.运行 npm run e2e 可以执行e2e自动测试
+4.使用webpack打包多页面
+
+启动方式
+1.npm install
+2.打开server/config/index.js文件 修改db配置
+3.开发
+  npm run dll(第一次运行项目的时候需要将第3方库打包为dll，加快前端热更新速度)
+  npm run webdriver:update(第一次运行项目的时候需要更新下载webdriver，可能需要翻墙)
+  npm run start:all
+4.测试
+  npm test
+  npm run e2e
+5.发布
+  npm run build
+  npm start
