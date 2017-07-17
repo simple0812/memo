@@ -38,10 +38,10 @@
                 <input @click='select($event)' type='checkbox' class='checkbox' v-model='isSelectAll' />
               </th>
               <th class="col-xs-5" style="cursor:pointer">
-                描述
+                标题
               </th>
               <th class="col-xs-5" style="cursor:pointer">
-                地址
+                摘要
               </th>
               <th class="col-xs-2">操作</th>
             </tr>
@@ -51,13 +51,13 @@
               <td style="width: 30px">
                 <input  type="checkbox" class='checkbox' v-model='model.isChecked'/>
               </td>
-              <td class="col-xs-5" v-html='model.description'></td>
+              <td class="col-xs-5" v-html='model.title'></td>
               <td class="col-xs-5">
-                <a :href='model.link' v-html='model.link'></a>
+                <a :href='model.link' v-html='model.content'></a>
               </td>
               <td class="col-xs-2">
                 <span class="gap a-remove" @click='remove(index, model)' >删除</span>
-                <span class="gap" @click='update(model)' >编辑</span>
+                <span class="gap" @click='navigate(model.id)' >详情</span>
               </td>
             </tr> 
           </tbody>

@@ -18,11 +18,11 @@ export default {
     }
   },
   methods:{
-    execPage: function() {
+    execPage: function(url) {
       var _this = this;
       _this.pager.moveIndicator(arguments[0]); 
 
-      $.getJSON('/api/v1/memo/page', _this.condition).then(ret => {
+      $.getJSON(url, _this.condition).then(ret => {
         if(!ret || ret.code!='success') {
           throw new Error(ret.message);
         }

@@ -1,14 +1,18 @@
 <template>
-  <div class="container fixed-width" style="padding-bottom:30px;">
+  <div>
     <headex></headex>
-    <div class="well well-sm">
+    <div class="well well-sm"  style="position:fixed;top:50px; width:100%;z-index:10002">
       <div class="container fixed-width">
-        <button type="button" class="btn btn-primary gap" id="btnCreate" onclick='location.href="/blog.html"'>
-          <span class="glyphicon glyphicon-plus"></span> 添加
+        <button type="button" class="btn btn-primary gap" id="btnCreate" @click='save'>
+          <span class="glyphicon glyphicon-save"></span> 保存
+        </button>
+        <button type="button" class="btn btn-default gap" id="btnCreate" @click='edit'>
+          <span class="glyphicon glyphicon-edit"></span> 编辑
         </button>
       </div>
     </div>
-    <editor></editor>
+    
+    <editor ref='ed'></editor>
     <footex></footex>
   </div>
 </template>
@@ -19,6 +23,30 @@ export default {
   name: 'app',
   components: {
     Editor
+  },
+  methods:{
+    save: function() {
+      var _this = this;
+      if(_this.$refs.ed.model.content == '') {
+        return alert('content is empty');
+      }
+
+      if(_this.$refs.ed.model.content == '') {
+        return alert('title is empty');
+      }
+
+      $.post('/api/v1/blog', _this.$refs.ed.model).then(doc => {
+          if(!doc || doc.code !== 'success') 
+            throw new Error(doc.message || 'res is empty');
+
+          _this.$refs.ed.isEdit = false;
+        }).fail(err => {
+          console.log(err.message);
+        });
+    },
+    edit: function() {
+      this.$refs.ed.edit();
+    }
   }
 }
 </script>

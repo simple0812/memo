@@ -35,32 +35,17 @@ window.onload = function() {
       }
     },
     methods: {
+      navigate: function(id) {
+        location.href = '/blog.html?id=' + id;
+      },
       show: function(evt) {
         if(evt.keyCode !== 13) return;
         this.search();
       },
-      send:function() {
-        $.post('/api/v1/memo', this.model).then(doc => {
-          if(!doc || doc.code !== 'success') 
-            throw new Error(doc.message || 'res is empty');
-
-          $('#myModal').modal('hide');
-          $('#myModal').data('action', '');
-
-          if($('#myModal').data('action') !== 'update') {
-            doc.result.isChecked = false;
-            this.search();
-          }
-        }).fail(err => {
-          $('#myModal').modal('hide');
-          $('#myModal').data('action', '');
-          console.log(err.message);
-        });
-      },
       remove: function(index, md) {
         if(!confirm('确定要删除吗')) return;
         $.ajax({
-          url:'/api/v1/memo',
+          url:'/api/v1/blog',
           type: "DELETE",
           data: JSON.stringify([md.id]),
           dataType: "json",
@@ -80,7 +65,7 @@ window.onload = function() {
         var x = _.chain(this.models).filter({isChecked: true}).map( (each) => each.id).value();
         var _this = this;
         $.ajax({
-          url:'/api/v1/memo',
+          url:'/api/v1/blog',
           type: "DELETE",
           data: JSON.stringify(x),
           dataType: "json",
@@ -95,23 +80,7 @@ window.onload = function() {
         });
       },
       search: function(md) {
-        this.$refs.page.execPage();
-      },
-      update: function(md) {
-        this.model = md;
-        this.model.isChecked =false;
-        $('#myModal').data('action', 'update');
-        $('#myModal').modal('show');
-      },
-      create: function(md) {
-        this.model = {
-          id:null,
-          isChecked: false,
-          description: '',
-          link: ''
-        };
-        $('#myModal').data('action', 'create');
-        $('#myModal').modal('show');
+        this.$refs.page.execPage('/api/v1/blog/page');
       },
       select: function(evt) {
         var p = $(evt.target).prop('checked');
