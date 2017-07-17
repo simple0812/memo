@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from './App.vue'
+import App from './app.vue'
 
 import Headex from '../components/headex.vue';
 import Footex from '../components/footex.vue';
