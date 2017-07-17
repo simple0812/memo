@@ -1,34 +1,35 @@
 <template>
-    <div id="example" >
-        <h1 @click='foo($event)'>{{ msg }}</h1>
-        <ul>
-            <li v-for="(n, i) in arr">{{n}}{{i}}</li>
-        </ul>
+  <div class="container fixed-width" style="padding-bottom:30px;">
+    <headex></headex>
+    <div class="well well-sm">
+      <div class="container fixed-width">
+        <button type="button" class="btn btn-primary gap" id="btnCreate" onclick='location.href="/blog.html"'>
+          <span class="glyphicon glyphicon-plus"></span> 添加
+        </button>
+      </div>
     </div>
+    <editor></editor>
+    <footex></footex>
+  </div>
 </template>
 
 <script>
-import * as _ from 'lodash'
-
+import Editor from '../components/Editor'
 export default {
-    data : function() {
-        return {
-            msg: `Hello World!`,
-            arr:[1, 2, 3].map(n => n + 1)
-        }
-    },
-    methods: {
-        foo:function(evt) {
-            console.log(evt)
-            console.log($(evt.target).html())
-        }
-    }
+  name: 'app',
+  components: {
+    Editor
+  }
 }
 </script>
 
-<style scoped>
-#example {
-    background: yellow;
-    height: 100vh;
+<style>
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
 }
 </style>
