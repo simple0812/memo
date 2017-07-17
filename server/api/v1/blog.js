@@ -11,15 +11,13 @@ exports.page = function(req, res) {
   var query = {
     limit: pageSize,
     offset: firNum,
-    raw: true
+    raw: true,
+    attributes:['id', 'title']
   };
 
   if (keyword.trim()) {
     query.where = {
-      $or:[
-        { description: { like: '%' + keyword + '%' }},
-        { link: { like: '%' + keyword + '%' }}
-      ]
+      title: { like: '%' + keyword + '%' }
     };
   }
 
@@ -56,7 +54,7 @@ exports.create = function(req, res) {
     return res.json(jsonHelper.getError('content is empty'));
   } 
 
-  if(!p.id  || +p.id == 0) {
+  if(!p.id  || +p.id === 0) {
     p.id = null;
   }
 

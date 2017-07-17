@@ -2,9 +2,9 @@
   <div style="margin-top:50px;" class="container fixed-width">
     <div class="input-group" style="margin:20px 0;"  v-show="isEdit" >
       <span class="input-group-addon addon-width-4 " style="">标题:</span>
-      <input class="form-control" style="width:290px;" id="txtLink" type="text" v-model="model.title"/>
+      <input class="form-control col-xs-12" id="txtLink" type="text" v-model="model.title"/>
     </div>
-    <h1 v-show="!isEdit" v-html="model.title" style="text-align:center;"></h1>
+    <h1 v-show="!isEdit" v-html="model.title" style="text-align:center; margin:40px 0"></h1>
     <div id="editorElem" v-show='isEdit'></div>
     <div v-show="!isEdit" v-html='model.content'>
     </div>
