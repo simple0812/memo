@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top:50px;" class="container fixed-width">
+  <div style="margin-top:50px; margin-bottom:50px;" class="container fixed-width">
     <div class="input-group" style="margin:20px 0;"  v-show="isEdit" >
       <span class="input-group-addon addon-width-4 " style="">标题:</span>
       <input class="form-control col-xs-12" id="txtLink" type="text" v-model="model.title"/>

@@ -56,8 +56,8 @@
                 <a :href='model.link' v-html='model.link'></a>
               </td>
               <td class="col-xs-2">
-                <span class="gap a-remove" @click='remove(index, model)' >删除</span>
-                <span class="gap" @click='update(model)' >编辑</span>
+                <span class="gap a-remove" style="cursor:pointer" @click='remove(index, model)' >删除</span>
+                <span class="gap" @click='update(model)' style="cursor:pointer">编辑</span>
               </td>
             </tr> 
           </tbody>
