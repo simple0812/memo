@@ -27,5 +27,8 @@ module.exports = {
       ipAddress = req.connection.remoteAddress;
     }
     return ipAddress;
+  },
+  getTime: function() {
+    return ~~(new Date().getTime() / 1000)
   }
 };

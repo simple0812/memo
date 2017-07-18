@@ -53,15 +53,23 @@ exports.create = function(req, res) {
   if(!p.content) {
     return res.json(jsonHelper.getError('content is empty'));
   } 
-
+  var promise;
+  console.log(p.id)
   if(!p.id  || +p.id === 0) {
     p.id = null;
+    promise = models.Blog.create(p, {raw:true});
+  } else {
+    promise = models.Blog.upsert(p);
   }
 
-  models.Blog.upsert(p).then(doc => {
+  promise.then(doc => {
+    if(!p.id) {
+      res.json(jsonHelper.getSuccess(doc));
+    } else {
       res.json(jsonHelper.getSuccess(p));
+    }
   }).catch(err => {
-      res.json(jsonHelper.getError(err.message));
+    res.json(jsonHelper.getError(err.message));
   });
 };
 
