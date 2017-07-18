@@ -10,7 +10,10 @@
             <a href="/link.html" v-curr>链接</a>
           </li>
           <li>
-            <a href="/catalog.html" v-curr >博客</a>
+            <a href="/catalog.html" v-curr >博客目录</a>
+          </li>
+          <li>
+            <a href="/file.html" v-curr >文件</a>
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link href="/assets/css/bootstrap.css" rel="stylesheet" />
+  <link href="/assets/css/style.css" rel="stylesheet" />
+  <link href="/assets/css/pager.css" rel="stylesheet" />
+  <title>备忘录</title>
+  <style>
+    .modal-backdrop {z-index: 2;}
+    
+    .fileinput-button {
+      position: relative;
+      overflow: hidden;
+    }
+    .fileinput-button input {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 0;
+      opacity: 0;
+      -ms-filter: 'alpha(opacity=0)';
+      font-size: 200px;
+      direction: ltr;
+      cursor: pointer;
+    }
+
+    /* Fixes for IE < 8 */
+    @media screen\9 {
+      .fileinput-button input {
+        filter: alpha(opacity=0);
+        font-size: 100%;
+        height: 100%;
+      }
+    }
+
+  </style>
+</head>
+
+<body style="padding-top:70px;">
+  <div id='app'>
+  
+    <div class="modal fade" id="Newfolder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title"
+              id="myNewfolderLabel">新建文件夹</h4>
+          </div>
+          <div class="modal-body"><input type="text" class="form-control" id="foldername" placeholder="请输入文件(夹)名" />
+            <div class="col-sm-offset-9 diabtnfix"><button type="button" id="btnNewfolder" class="btn btn-primary " @click="mkdir('#Newfolder')">确定</button><button type="button"
+                class="btn btn-default sp-btnfix" data-dismiss="modal">关闭</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="Renamefolder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title "
+              id="myRenamefolder">重命名</h4>
+          </div>
+          <div class="modal-body">
+            <div class="input-group "><input type="text" class="form-control" id="txtRenamefolder" placeholder="请输入文件(夹)名" /><span class="input-group-addon"
+                id="postifx"></span></div>
+            <div class="col-sm-offset-9 diabtnfix"><button type="button" id="btnRenamefolder" class="btn btn-primary " @click="rename('#Renamefolder')">确定</button>
+              <button
+                type="button" class="btn btn-default sp-btnfix" data-dismiss="modal">关闭</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="Movefile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content" style="position:relative">
+          <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title "
+              id="myMovefile">移动文件</h4>
+          </div>
+          <div class="modal-body">
+            <ul class="nav" id="dirlist" style=" overflow: hidden"></ul>
+          </div>
+          <div class="modal-footer"><button type="button" id="btnMoveFolder" class="btn btn-primary " @click="mv('#Movefile')">确定</button><button type="button"
+              class="btn btn-default " data-dismiss="modal">关闭</button></div>
+        </div>
+      </div>
+    </div>
+  
+    <headex></headex>
+    <div class="col-sm-2" id="sidebar" role="navigation">
+      <div class="list-group"><a href="javascript:void(0)" onclick="turn(this)" showflag="all" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> 全部文件</a>
+        <a href="javascript:void(0)" onclick="turn(this)" showflag="pic" class="list-group-item "><span class="glyphicon glyphicon-picture"></span> 图片</a>
+        <a href="javascript:void(0)" onclick="turn(this)" showflag="doc" class="list-group-item "><span class="glyphicon glyphicon-file"></span> 文档</a>
+        <a href="javascript:void(0)" onclick="turn(this)" showflag="video" class="list-group-item "><span class="glyphicon glyphicon-facetime-video"></span> 视频</a>
+        <a href="javascript:void(0)" onclick="turn(this)" showflag="other" class="list-group-item "><span class="glyphicon glyphicon-plus"></span> 其他</a>
+      </div>
+    </div>
+    <div class="col-sm-10" id="nodefield">
+      <div class="row " id="operateFilearea">
+        <div class="col-sm-8">
+          <form id="uploadForm">
+            <uploader v-on:progress='uploadProgress' v-on:done='uploadDone'></uploader>
+            <button type="button" class="btn btn-default sp-btnfix" id="btnNewF" @click="showMkDialog()">
+              <span class="glyphicon glyphicon-folder-close"></span> 新建文件夹</button>
+            <button type="button" class="btn btn-default sp-btnfix" id="btnMoveFile" @click="showMvDialog()"><span class="glyphicon glyphicon-move"></span> 移动</button>
+          </form>
+        </div>
+        <div class="form-group col-sm-3"><input type="text" class="form-control" id="txtSearchFile" placeholder="请输入文件名" /></div><button type="submit" class="btn btn-default"
+          id="btnSearchFile">搜索</button></div>
+      <div id="progress" class="progress" v-show='fileuploadProgress'>
+        <div class="progress-bar progress-bar-primary"  v-bind:style='{ width: fileuploadProgress +"%" }'></div>
+      </div>
+      <div id="files" class="files"></div>
+      
+      <ol class="breadcrumb" id="nodenav" nodeid="962f4b5b-ed1f-8328-e299-f7f232a31930" nodepath="/">
+        <li><a href="javascript:void(0)" nodeid="962f4b5b-ed1f-8328-e299-f7f232a31930" nodepath="/" onclick="showpath(this)">全部文件</a></li>
+      </ol>
+      <div class="row taoverfix">
+        <table class="table table-hover " id="filelist">
+          <tr id="filelisthead">
+            <th class="col-sm-5 dropup thsortbyname" style="cursor:pointer" enabled="enabled">
+              <div class="dropdowm"><span class="col-sm-1"><input type="checkbox" id="allFile" /></span><span class="col-sm-4 ">文件名<b class="caret" style="display:none"></b></span></div>
+            </th>
+            <th class="col-sm-2 dropup thsortbysize" style="cursor:pointer">大小<b class=" caret" style="display:none"></b></th>
+            <th class="col-sm-2 dropdown thsortbycreatedAt" style="cursor:pointer">修改日期<b class=" caret" style="display:none"></b></th>
+            <th class="col-sm-1 dropdown belonges" style="display:none">上传者</th>
+            <th class="col-sm-2" id="filedir" style="display:none">所在目录</th>
+          </tr>
+        </table>
+        <pager :keyword='pageCondition.keyword' ref='page'  class="page_y" id="pager" v-on:page='onPage'></pager>
+      </div>
+    </div>
+  </div>
+</body>
+<script type="text/template" id="filetemp" style="display:none">
+  <td>
+    <div class="dropdowm"><span class="col-sm-1 "><input type="checkbox" value="{{id}}" class="chkFileItem" /></span>
+      <div class="col-sm-1 ">
+        <div class="sharefix"><b class="shareloack "></b><b class=" typepic "></b></div>
+      </div><span class="col-sm-10 sp-filename " nodetype="{{type}}" title="{{name}}">{{linkcheck}}</span><span class="col-sm-4 fileoper"
+        style="display:none;text-align:right;"><a href="javascript:void(0)" class="delfile" title="删除"><span class="glyphicon glyphicon-trash" style="margin-right:10px"></span></a>
+      <a
+        href="javascript:void(0)" class="downfile" title="下载"><span class="glyphicon glyphicon-download" style="margin-right:10px"></span></a><a href="javascript:void(0)" class="sharefile"><span class="glyphicon " style="margin-right:10px"></span></a>
+        <a
+          href="javascript:void(0)" class="dropdown-toggle moreop" data-toggle="dropdown" title="更多操作"><span class="glyphicon glyphicon-chevron-down"><ul class="dropdown-menu" style="min-width:80px;margin-left:150px;"><li><a href="javascript:void(0)" class="Movefile" data-toggle="modal" data-target="#Movefile">移动到</a></li><li class="divider"></li><li><a href="javascript:void(0)" class="renameFile" onclick="modalIputFocus('#Renamefolder', '#txtRenamefolder')">重命名</a></li></ul></span></a>
+          </span>
+    </div>
+    <div class="nodeurl" style="display:none"></div>
+  </td>
+  <td class="userstatus">{{size}}</td>
+  <td>{{mtime}}</td>
+  <td class="belonges" style="display:none">{{belongs}}</td>
+  <td class="filedir" style="display:none">{{path}}</td>
+</script>
+<script type="text/template" id="dirlisttemp" style="display:none">
+  <div><span class=" col-sm-offset-1  selectedfile"></span><b class="moveFileImg"></b><a href="javascript:void(0)" nodeid="{{id}}"
+      nodepath="{{path}}" class="moveTo">{{name}}</a></div>
+</script>
+<script src="/assets/js/libs/pager.js" ></script>
+<script src="/assets/js/libs/hashChange.js" ></script>
+<script src="/assets/js/libs/jquery.ui.widget.js" ></script>
+<script src="/assets/js/libs/jquery.fileupload.js" ></script>
+</html>

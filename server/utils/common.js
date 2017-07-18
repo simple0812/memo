@@ -29,6 +29,6 @@ module.exports = {
     return ipAddress;
   },
   getTime: function() {
-    return ~~(new Date().getTime() / 1000)
+    return ~~(new Date().getTime() / 1000);
   }
 };

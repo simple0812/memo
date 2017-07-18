@@ -54,7 +54,6 @@ exports.create = function(req, res) {
     return res.json(jsonHelper.getError('content is empty'));
   } 
   var promise;
-  console.log(p.id)
   if(!p.id  || +p.id === 0) {
     p.id = null;
     promise = models.Blog.create(p, {raw:true});

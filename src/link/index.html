@@ -37,10 +37,10 @@
               <th style="width:30px">
                 <input @click='select($event)' type='checkbox' class='checkbox' v-model='isSelectAll' />
               </th>
-              <th class="col-xs-5" style="cursor:pointer">
+              <th class="col-xs-3" style="cursor:pointer">
                 描述
               </th>
-              <th class="col-xs-5" style="cursor:pointer">
+              <th class="col-xs-7" style="cursor:pointer">
                 地址
               </th>
               <th class="col-xs-2">操作</th>
@@ -51,8 +51,8 @@
               <td style="width: 30px">
                 <input  type="checkbox" class='checkbox' v-model='model.isChecked'/>
               </td>
-              <td class="col-xs-5" v-html='model.description'></td>
-              <td class="col-xs-5">
+              <td class="col-xs-3" v-html='model.description'></td>
+              <td class="col-xs-7">
                 <a :href='model.link' v-html='model.link'></a>
               </td>
               <td class="col-xs-2">

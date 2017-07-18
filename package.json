@@ -65,6 +65,7 @@
     "request": "^2.67.0",
     "sequelize": "^3.28.0",
     "unzip": "^0.1.11",
+    "uuid": "^3.1.0",
     "validator": "^7.0.0",
     "vue": "^2.3.4",
     "wangeditor": "^3.0.4"
