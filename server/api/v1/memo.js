@@ -52,7 +52,7 @@ exports.create = function(req, res) {
   } 
   p.id = p.id || null;
 
-  if(p.link.indexOf('http://') !== 0) {
+  if(p.link.indexOf('http://') !== 0 && p.link.indexOf('https://') !== 0) {
     p.link = 'http://' + p.link;
   }
 
