@@ -8,12 +8,15 @@
   <link href="/assets/css/pager.css" rel="stylesheet" />
   <title>备忘录</title>
   <style>
-    .modal-backdrop {z-index: 2;}
-    
+    .modal-backdrop {
+      z-index: 2;
+    }
+
     .fileinput-button {
       position: relative;
       overflow: hidden;
     }
+
     .fileinput-button input {
       position: absolute;
       top: 0;
@@ -25,8 +28,8 @@
       direction: ltr;
       cursor: pointer;
     }
-
     /* Fixes for IE < 8 */
+
     @media screen\9 {
       .fileinput-button input {
         filter: alpha(opacity=0);
@@ -34,24 +37,29 @@
         height: 100%;
       }
     }
-
+    .locked{display: inline-block; width: 11px;height: 13px;background: url("/assets/images/gbox.gif") no-repeat scroll -47px -314px ; position: relative; left: 5px}
+    .tydir{display: inline-block; width: 26px;height: 22px;background: url("/assets/images/type.gif") no-repeat scroll 0px 0px ; position: relative; left: 0px}
+    .typicture{display: inline-block; width: 26px;height: 22px;background: url("/assets/images/type.gif") no-repeat scroll 0px -80px ; position: relative; left: 0px}
+    .tyvideo{display: inline-block; width: 26px;height: 22px;background: url("/assets/images/type.gif") no-repeat scroll -224px -80px ; position: relative; left: 0px}
+    .tyother{display: inline-block; width: 26px;height: 22px;background: url("/assets/images/type.gif") no-repeat scroll -416px -80px ; position: relative; left: 0px}
+    .tydocument{display: inline-block; width: 26px;height: 22px;background: url("/assets/images/type.gif") no-repeat scroll -160px -80px ;  position: relative; left: 0px}
   </style>
 </head>
 
 <body style="padding-top:70px;">
   <div id='app'>
-  
     <div class="modal fade" id="Newfolder" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title"
-              id="myNewfolderLabel">新建文件夹</h4>
+            <h4 class="modal-title" id="myNewfolderLabel">新建文件夹</h4>
           </div>
           <div class="modal-body"><input type="text" class="form-control" id="foldername" placeholder="请输入文件(夹)名" />
-            <div class="col-sm-offset-9 diabtnfix"><button type="button" id="btnNewfolder" class="btn btn-primary " @click="mkdir('#Newfolder')">确定</button><button type="button"
-                class="btn btn-default sp-btnfix" data-dismiss="modal">关闭</button></div>
+            <div class="col-sm-offset-9 diabtnfix"><button type="button" id="btnNewfolder" class="btn btn-primary " @click="mkdir('#Newfolder')">确定</button>
+              <button
+                type="button" class="btn btn-default sp-btnfix" data-dismiss="modal">关闭</button>
+            </div>
           </div>
         </div>
       </div>
@@ -60,15 +68,13 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title "
-              id="myRenamefolder">重命名</h4>
+            <h4 class="modal-title " id="myRenamefolder">重命名</h4>
           </div>
           <div class="modal-body">
             <div class="input-group "><input type="text" class="form-control" id="txtRenamefolder" placeholder="请输入文件(夹)名" /><span class="input-group-addon"
                 id="postifx"></span></div>
             <div class="col-sm-offset-9 diabtnfix"><button type="button" id="btnRenamefolder" class="btn btn-primary " @click="rename('#Renamefolder')">确定</button>
-              <button
-                type="button" class="btn btn-default sp-btnfix" data-dismiss="modal">关闭</button>
+              <button type="button" class="btn btn-default sp-btnfix" data-dismiss="modal">关闭</button>
             </div>
           </div>
         </div>
@@ -78,8 +84,7 @@
       <div class="modal-dialog">
         <div class="modal-content" style="position:relative">
           <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title "
-              id="myMovefile">移动文件</h4>
+            <h4 class="modal-title " id="myMovefile">移动文件</h4>
           </div>
           <div class="modal-body">
             <ul class="nav" id="dirlist" style=" overflow: hidden"></ul>
@@ -89,14 +94,14 @@
         </div>
       </div>
     </div>
-  
+
     <headex></headex>
     <div class="col-sm-2" id="sidebar" role="navigation">
-      <div class="list-group"><a href="javascript:void(0)" onclick="turn(this)" showflag="all" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> 全部文件</a>
-        <a href="javascript:void(0)" onclick="turn(this)" showflag="pic" class="list-group-item "><span class="glyphicon glyphicon-picture"></span> 图片</a>
-        <a href="javascript:void(0)" onclick="turn(this)" showflag="doc" class="list-group-item "><span class="glyphicon glyphicon-file"></span> 文档</a>
-        <a href="javascript:void(0)" onclick="turn(this)" showflag="video" class="list-group-item "><span class="glyphicon glyphicon-facetime-video"></span> 视频</a>
-        <a href="javascript:void(0)" onclick="turn(this)" showflag="other" class="list-group-item "><span class="glyphicon glyphicon-plus"></span> 其他</a>
+      <div class="list-group"><a href="javascript:void(0)" @click="searchByType()" showflag="all" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> 全部文件</a>
+        <a href="javascript:void(0)" @click="searchByType('picture')" class="list-group-item "><span class="glyphicon glyphicon-picture"></span> 图片</a>
+        <a href="javascript:void(0)" @click="searchByType('document')" class="list-group-item "><span class="glyphicon glyphicon-file"></span> 文档</a>
+        <a href="javascript:void(0)" @click="searchByType('video')" class="list-group-item "><span class="glyphicon glyphicon-facetime-video"></span> 视频</a>
+        <a href="javascript:void(0)" @click="searchByType('other')" class="list-group-item "><span class="glyphicon glyphicon-plus"></span> 其他</a>
       </div>
     </div>
     <div class="col-sm-10" id="nodefield">
@@ -104,18 +109,17 @@
         <div class="col-sm-8">
           <form id="uploadForm">
             <uploader v-on:progress='uploadProgress' v-on:done='uploadDone'></uploader>
-            <button type="button" class="btn btn-default sp-btnfix" id="btnNewF" @click="showMkDialog()">
-              <span class="glyphicon glyphicon-folder-close"></span> 新建文件夹</button>
-            <button type="button" class="btn btn-default sp-btnfix" id="btnMoveFile" @click="showMvDialog()"><span class="glyphicon glyphicon-move"></span> 移动</button>
+            <button type="button" class="btn btn-default sp-btnfix" @click="showMkDialog()"><span class="glyphicon glyphicon-folder-close"></span> 新建文件夹</button>
+            <button type="button" class="btn btn-default sp-btnfix" @click="removeAll()"><span class="glyphicon glyphicon-trash"></span> 删除</button>
+            <button type="button" class="btn btn-default sp-btnfix" @click="showMvDialog()"><span class="glyphicon glyphicon-move"></span> 移动</button>
           </form>
         </div>
-        <div class="form-group col-sm-3"><input type="text" class="form-control" id="txtSearchFile" placeholder="请输入文件名" /></div><button type="submit" class="btn btn-default"
-          id="btnSearchFile">搜索</button></div>
+        <div class="form-group col-sm-3"><input type="text" class="form-control" id="txtSearchFile" v-model='pageCondition.keyword' placeholder="请输入文件名" /></div>
+        <button type="submit" class="btn btn-default" @click='search' id="btnSearchFile">搜索</button></div>
       <div id="progress" class="progress" v-show='fileuploadProgress'>
-        <div class="progress-bar progress-bar-primary"  v-bind:style='{ width: fileuploadProgress +"%" }'></div>
+        <div class="progress-bar progress-bar-primary" v-bind:style='{ width: fileuploadProgress +"%" }'></div>
       </div>
       <div id="files" class="files"></div>
-      
       <ol class="breadcrumb" id="nodenav" nodeid="962f4b5b-ed1f-8328-e299-f7f232a31930" nodepath="/">
         <li><a href="javascript:void(0)" nodeid="962f4b5b-ed1f-8328-e299-f7f232a31930" nodepath="/" onclick="showpath(this)">全部文件</a></li>
       </ol>
@@ -123,32 +127,39 @@
         <table class="table table-hover " id="filelist">
           <tr id="filelisthead">
             <th class="col-sm-5 dropup thsortbyname" style="cursor:pointer" enabled="enabled">
-              <div class="dropdowm"><span class="col-sm-1"><input type="checkbox" id="allFile" /></span><span class="col-sm-4 ">文件名<b class="caret" style="display:none"></b></span></div>
-            </th>
-            <th class="col-sm-2 dropup thsortbysize" style="cursor:pointer">大小<b class=" caret" style="display:none"></b></th>
-            <th class="col-sm-2 dropdown thsortbycreatedAt" style="cursor:pointer">修改日期<b class=" caret" style="display:none"></b></th>
-            <th class="col-sm-1 dropdown belonges" style="display:none">上传者</th>
-            <th class="col-sm-2" id="filedir" style="display:none">所在目录</th>
-          </tr>
-          <tr v-for='model of models'>
-            <td>
-              <div class="dropdowm"><span class="col-sm-1 "><input type="checkbox" v-model="model.id" class="chkFileItem" /></span>
-                <div class="col-sm-1 ">
-                  <div class="sharefix"><b class="shareloack "></b><b class=" typepic "></b></div>
-                </div><span class="col-sm-10 sp-filename " :nodetype="model.type" :title="model.name" v-html='model.linkcheck'></span>
+              <div class="dropdowm">
+                <span class="col-sm-1"><input @click='select($event)' type='checkbox' class='checkbox' v-model='isSelectAll' /></span>
+                <span class="col-sm-1 ">类型</span>
+                <span class="col-sm-3 ">文件名<b class="caret" style="display:none"></b></span>
               </div>
-              <div class="nodeurl" style="display:none"></div>
+            </th>
+            <th class="col-sm-2 dropup" style="cursor:pointer">大小</th>
+            <th class="col-sm-2 dropdown " style="cursor:pointer">修改日期<b class=" caret"></b></th>
+          </tr>
+          <tr v-for='(model, index) of models'>
+            <td class='tdname' @mouseover='mouseover(model)' @mouseout='mouseout(model)'>
+              <div>
+                <span class="col-sm-1"><input type="checkbox" class='checkbox' v-model='model.isChecked' /> </span>
+                <span class="col-sm-1"><b :class='"ty" + model.type' :title='model.type'></b></span>
+                <span class="col-sm-6" :nodetype="model.type" :title="model.name" v-html='model.name'></span>
+                <span class="col-sm-3" :id='"hoverspan"+model.id' style='display:none'>
+                  <a href="javascript:void(0)" @click='remove(model)' title="删除"><span class="glyphicon glyphicon-trash" style="margin-right:10px"></span></a>
+                  <a href="javascript:void(0)" title="下载"><span class="glyphicon glyphicon-download" style="margin-right:10px"></span></a>
+                  <a href="javascript:void(0)" title="mv()"><span class="glyphicon glyphicon-move" style="margin-right:10px"></span></a>
+                </span>
+              </div>
             </td>
             <td class="userstatus" v-html='model.size'></td>
             <td v-html='model.mtime'></td>
             <td class="filedir" style="display:none" v-html='model.path'></td>
           </tr>
-        </table>
-        <pager :keyword='pageCondition.keyword' ref='page' url='/api/v1/file/page'  class="page_y" id="pager" v-on:page='onPage'></pager>
-      </div>
+      </table>
+      <pager :condition='pageCondition' ref='page' url='/api/v1/file/page' class="page_y" id="pager" v-on:page='onPage'></pager>
     </div>
   </div>
+  </div>
 </body>
-<script src="/assets/js/libs/pager.js" ></script>
-<script src="/assets/js/libs/hashChange.js" ></script>
+<script src="/assets/js/libs/pager.js"></script>
+<script src="/assets/js/libs/hashChange.js"></script>
+
 </html>

@@ -19,5 +19,6 @@ router.delete('/blog', blogCtrl.remove);
 router.post('/upload', upload.array('files'), fileCtrl.upload);
 router.post('/mkdir', fileCtrl.mkdir);
 router.get('/file/page', fileCtrl.page);
+router.delete('/file', fileCtrl.remove);
 
 module.exports = router;

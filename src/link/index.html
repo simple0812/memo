@@ -63,7 +63,7 @@
           </tbody>
         </table>
       </div>
-      <pager :keyword='pageCondition.keyword' ref='page' url='/api/v1/memo/page' v-on:page='onPage'></pager>
+      <pager :condition='pageCondition' ref='page' url='/api/v1/memo/page' v-on:page='onPage'></pager>
     </div>
     <footex></footex>
     <div class="modal fade  ng-scope" id="myModal" tabindex="-1" role="dialog" style="z-index:3;" aria-labelledby="createUserModalLabel">

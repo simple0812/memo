@@ -95,6 +95,7 @@ window.onload = function() {
         });
       },
       search: function(md) {
+        console.log('search')
         this.$refs.page.execPage();
       },
       update: function(md) {
@@ -126,7 +127,7 @@ window.onload = function() {
     watch: {
     },
     mounted : function() {
-      this.search();
+      // this.search();
     }
   });
 }

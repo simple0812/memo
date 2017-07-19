@@ -6,6 +6,8 @@ var models = require('../../models');
 var uuidv1 = require('uuid/v1');
 var path = require('path');
 var fs = require('fs');
+var moment = require('moment');
+var filesize = require('filesize');
 
 
 function getTyeByext(fileName) {
@@ -40,7 +42,8 @@ exports.page = function(req, res) {
     raw: true,
     where: {
 
-    }
+    },
+    order:'mtime desc'
   };
 
   if(keyword.trim()) {
@@ -56,7 +59,11 @@ exports.page = function(req, res) {
   }
 
   models.Node.findAndCountAll(query).then(function(result) {
-    var docs = result.rows;
+    var docs = result.rows.map(each => {
+      each.mtime = moment(each.mtime * 1000).format('YYYY-MM-DD HH:mm:ss');
+      each.size = filesize(each.size);
+      return each;
+    });
     var count = result.count;
 
     res.json(jsonHelper.pageSuccess(docs, count));
@@ -66,9 +73,9 @@ exports.page = function(req, res) {
 };
 
 exports.mkdir = function(req, res) {
-  var path = req.query.path || '/';
-  var pid = req.query.pid || '';
-  var name = req.query.name || '';
+  var path = req.body.path || '/';
+  var pid = req.body.pid || '';
+  var name = req.body.name || '';
  
   var id = uuidv1();
   var node = {
@@ -124,3 +131,18 @@ exports.upload = function(req, res) {
     res.json(jsonHelper.getError(err.message));
   });
 };
+
+exports.remove = function(req, res) {
+  var p = req.body;
+  
+  if(!p || !p.length ) {
+      return res.json(jsonHelper.getError('data is emtpy'));
+  }
+  models.Node.destroy({where:{id:{$in:p}}}).then(doc => {
+    res.json(jsonHelper.getSuccess(doc));
+  }).catch(err => {
+    res.json(jsonHelper.getError(err.message));
+  });
+};
+
+

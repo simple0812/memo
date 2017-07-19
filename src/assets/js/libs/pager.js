@@ -11,7 +11,6 @@
   return str;
 }
 
-
 function pagerDelegate(obj, method, mode) {
   var delegate = function () {
     var args = [];

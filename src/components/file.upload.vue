@@ -21,7 +21,7 @@ export default {
   mounted : function() {
     var _this = this;
     var url = this.url ||  `/api/v1/upload?path=${this.path || ''}&pid=${this.pid || ''}`;
-    console.log($('#xfileupload').length)
+    
     $('#xfileupload').fileupload({
       url: url,
       dataType: 'json',
