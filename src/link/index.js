@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import Vue from 'vue'
 import Headex from '../components/headex.vue';
 import Footex from '../components/footex.vue';
-import Pager from '../components/pager.vue';
+import Pager from '../components/pager';
 
 Vue.component('headex', Headex)
 Vue.component('footex', Footex)
@@ -127,7 +127,7 @@ window.onload = function() {
     watch: {
     },
     mounted : function() {
-      // this.search();
+      this.search();
     }
   });
 }

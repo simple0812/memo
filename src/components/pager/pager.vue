@@ -3,6 +3,9 @@
 </template>
 <script>
 import * as _ from 'lodash';
+import Pager from './pager.js';
+console.log(Pager)
+
 export default {
   computed: {
     xcondition: function() {
@@ -39,16 +42,10 @@ export default {
       }).fail(err => {
         console.log(err.message);
       });
-    },
-    rendex: function(ret) {
-      this.pager.setRecordCount(ret.total || 0);
-      this.pager.renderNumberStyleHtml($('#pager').get(0));
     }
   },
   props:["condition", 'url'],
   mounted: function() {
-    console.log('xxxx')
-    this.pager.moveIndicator(arguments[0]);
   }
 }
 </script>

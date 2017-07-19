@@ -1,4 +1,4 @@
-﻿String.format = function() {
+String.format = function() {
   if (arguments.length == 0)
     return null;
 
@@ -420,7 +420,4 @@ Pager.prototype.handleTextChanged = function () {
   this.temppage = arguments[0].objRef.value;
 }
 
-
-export {Pager}
-
-
+export default Pager;

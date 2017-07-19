@@ -4,7 +4,7 @@ import * as _ from 'lodash';
 import Vue from 'vue'
 import Headex from '../components/headex.vue';
 import Footex from '../components/footex.vue';
-import Pager from '../components/pager.vue';
+import Pager from '../components/pager';
 import Uploader from '../components/file.upload.vue';
 
 Vue.component('headex', Headex)
