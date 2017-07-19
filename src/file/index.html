@@ -130,38 +130,25 @@
             <th class="col-sm-1 dropdown belonges" style="display:none">上传者</th>
             <th class="col-sm-2" id="filedir" style="display:none">所在目录</th>
           </tr>
+          <tr v-for='model of models'>
+            <td>
+              <div class="dropdowm"><span class="col-sm-1 "><input type="checkbox" v-model="model.id" class="chkFileItem" /></span>
+                <div class="col-sm-1 ">
+                  <div class="sharefix"><b class="shareloack "></b><b class=" typepic "></b></div>
+                </div><span class="col-sm-10 sp-filename " :nodetype="model.type" :title="model.name" v-html='model.linkcheck'></span>
+              </div>
+              <div class="nodeurl" style="display:none"></div>
+            </td>
+            <td class="userstatus" v-html='model.size'></td>
+            <td v-html='model.mtime'></td>
+            <td class="filedir" style="display:none" v-html='model.path'></td>
+          </tr>
         </table>
-        <pager :keyword='pageCondition.keyword' ref='page'  class="page_y" id="pager" v-on:page='onPage'></pager>
+        <pager :keyword='pageCondition.keyword' ref='page' url='/api/v1/file/page'  class="page_y" id="pager" v-on:page='onPage'></pager>
       </div>
     </div>
   </div>
 </body>
-<script type="text/template" id="filetemp" style="display:none">
-  <td>
-    <div class="dropdowm"><span class="col-sm-1 "><input type="checkbox" value="{{id}}" class="chkFileItem" /></span>
-      <div class="col-sm-1 ">
-        <div class="sharefix"><b class="shareloack "></b><b class=" typepic "></b></div>
-      </div><span class="col-sm-10 sp-filename " nodetype="{{type}}" title="{{name}}">{{linkcheck}}</span><span class="col-sm-4 fileoper"
-        style="display:none;text-align:right;"><a href="javascript:void(0)" class="delfile" title="删除"><span class="glyphicon glyphicon-trash" style="margin-right:10px"></span></a>
-      <a
-        href="javascript:void(0)" class="downfile" title="下载"><span class="glyphicon glyphicon-download" style="margin-right:10px"></span></a><a href="javascript:void(0)" class="sharefile"><span class="glyphicon " style="margin-right:10px"></span></a>
-        <a
-          href="javascript:void(0)" class="dropdown-toggle moreop" data-toggle="dropdown" title="更多操作"><span class="glyphicon glyphicon-chevron-down"><ul class="dropdown-menu" style="min-width:80px;margin-left:150px;"><li><a href="javascript:void(0)" class="Movefile" data-toggle="modal" data-target="#Movefile">移动到</a></li><li class="divider"></li><li><a href="javascript:void(0)" class="renameFile" onclick="modalIputFocus('#Renamefolder', '#txtRenamefolder')">重命名</a></li></ul></span></a>
-          </span>
-    </div>
-    <div class="nodeurl" style="display:none"></div>
-  </td>
-  <td class="userstatus">{{size}}</td>
-  <td>{{mtime}}</td>
-  <td class="belonges" style="display:none">{{belongs}}</td>
-  <td class="filedir" style="display:none">{{path}}</td>
-</script>
-<script type="text/template" id="dirlisttemp" style="display:none">
-  <div><span class=" col-sm-offset-1  selectedfile"></span><b class="moveFileImg"></b><a href="javascript:void(0)" nodeid="{{id}}"
-      nodepath="{{path}}" class="moveTo">{{name}}</a></div>
-</script>
 <script src="/assets/js/libs/pager.js" ></script>
 <script src="/assets/js/libs/hashChange.js" ></script>
-<script src="/assets/js/libs/jquery.ui.widget.js" ></script>
-<script src="/assets/js/libs/jquery.fileupload.js" ></script>
 </html>

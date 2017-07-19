@@ -1,11 +1,16 @@
+
 <template>
+
   <span class="btn btn-primary fileinput-button">
     <i class="glyphicon glyphicon-upload"></i><span> 上传文件</span>
-    <input id="fileupload" type="file" name="files" multiple="multiple" style="width: 90px; height: 30px; display: block;" />
+    <input id="xfileupload" type="file" name="files" multiple="multiple" style="width: 90px; height: 30px; display: block;" />
   </span>
 </template>
 
 <script>
+import "blueimp-file-upload/js/vendor/jquery.ui.widget.js";
+import "blueimp-file-upload/js/jquery.fileupload.js";
+
 export default {
   data : function() {
     return {
@@ -16,8 +21,8 @@ export default {
   mounted : function() {
     var _this = this;
     var url = this.url ||  `/api/v1/upload?path=${this.path || ''}&pid=${this.pid || ''}`;
-
-    $('#fileupload').fileupload({
+    console.log($('#xfileupload').length)
+    $('#xfileupload').fileupload({
       url: url,
       dataType: 'json',
       add: function (e, data) {

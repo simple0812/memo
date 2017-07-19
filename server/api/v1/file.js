@@ -15,7 +15,7 @@ function getTyeByext(fileName) {
     document:['doc', 'docx', 'docm', 'dotx', 'dotm', 'xls', 'xlsx', 'xlsm', 'xltx', 'xltm', 'xlsb', 'xlam', 'ppt', 'pptx', 'pptm', 'ppsx', 'potx', 'pdf', 'txt'],
     video:['avi', 'rmvb', 'rm', 'asf', 'divx', 'mpg', 'mpeg', 'mpe', 'wmv', 'mp4', 'mkv', 'vob'],
     //other:[]
-  }
+  };
 
   for(var key in p) {
     if(p[key].indexOf(extension) !== -1) {
@@ -88,7 +88,7 @@ exports.mkdir = function(req, res) {
     res.json(jsonHelper.getSuccess('upload success'));
   }).catch(err => {
     res.json(jsonHelper.getError(err.message));
-  })
+  });
 };
 
 exports.upload = function(req, res) {
@@ -122,5 +122,5 @@ exports.upload = function(req, res) {
     res.json(jsonHelper.getSuccess('upload success'));
   }).catch(err => {
     res.json(jsonHelper.getError(err.message));
-  })
+  });
 };

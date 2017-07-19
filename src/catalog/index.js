@@ -80,7 +80,7 @@ window.onload = function() {
         });
       },
       search: function(md) {
-        this.$refs.page.execPage('/api/v1/blog/page');
+        this.$refs.page.execPage();
       },
       select: function(evt) {
         var p = $(evt.target).prop('checked');

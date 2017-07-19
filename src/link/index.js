@@ -95,7 +95,7 @@ window.onload = function() {
         });
       },
       search: function(md) {
-        this.$refs.page.execPage('/api/v1/memo/page');
+        this.$refs.page.execPage();
       },
       update: function(md) {
         this.model = md;

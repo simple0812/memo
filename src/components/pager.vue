@@ -1,7 +1,6 @@
 <template>
   <div class="page_y" id="pager"></div>
 </template>
-
 <script>
 export default {
   computed: {
@@ -18,11 +17,11 @@ export default {
     }
   },
   methods:{
-    execPage: function(url) {
+    execPage: function() {
       var _this = this;
       _this.pager.moveIndicator(arguments[0]); 
 
-      $.getJSON(url, _this.condition).then(ret => {
+      $.getJSON(_this.url, _this.condition).then(ret => {
         if(!ret || ret.code!='success') {
           throw new Error(ret.message);
         }
@@ -44,7 +43,7 @@ export default {
       this.pager.renderNumberStyleHtml($('#pager').get(0));
     }
   },
-  props:["keyword"],
+  props:["keyword", 'url'],
   mounted: function() {
     this.pager.moveIndicator(arguments[0]);
   }
