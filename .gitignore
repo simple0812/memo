@@ -7,7 +7,6 @@ node_modules/
 # Logs
 logs
 *.log
-files/*
 uploads/*
 server/logs/*
 server/files/*
@@ -58,3 +57,4 @@ dll/
 *.shim.ngstyle.ts
 
 package-lock.json
+
